@@ -9,21 +9,21 @@ filesRoutes.get("/posts", async (req, res) => {
   return res.json(posts);
 });
 
-filesRoutes.post("/file", multer(multerConfig).single("file"), async (req, res) => {
-  // const { originalname: name, size, key, location: url = "" } = req.file;
+filesRoutes.post("/file", multer(multerConfig).single("file"), async (req: any, res: any) => {
+  const { originalname: name, size, key, location: url = "" } = req.file;
   console.log(req.file)
-  // const post = await File.create({
-  //   name,
-  //   size,
-  //   key,
-  //   url
-  // });
+  const post = await File.create({
+    name,
+    size,
+    key,
+    url
+  });
 
-  return res.json(req.file);
-  // return res.json(post);
+  // return res.json(req.file);
+  return res.json(post);
 });
 
-filesRoutes.delete("/posts/:id", async (req, res) => {
+filesRoutes.delete("/file/:id", async (req, res) => {
   const post = await File.findById(req.params.id);
 
   !!post && await post.remove();
